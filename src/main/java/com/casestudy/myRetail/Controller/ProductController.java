@@ -1,10 +1,10 @@
-package com.casestudy.myRetail;
+package com.casestudy.myRetail.Controller;
 
 import com.casestudy.myRetail.Service.PriceService;
 import com.casestudy.myRetail.Service.ProductService;
 import com.casestudy.myRetail.model.Price;
 import com.casestudy.myRetail.model.Product;
-import com.casestudy.myRetail.util.ProductNotFoundException;
+import com.casestudy.myRetail.Exception.ProductNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +19,10 @@ import java.io.IOException;
  * Created by z071476 on 9/22/17.
  */
 @RestController
-public class MyRetailController {
+public class ProductController {
 
     private static final Logger log = LoggerFactory
-            .getLogger(MyRetailController.class);
+            .getLogger(ProductController.class);
     @Autowired
     ProductService productService;
     @Autowired

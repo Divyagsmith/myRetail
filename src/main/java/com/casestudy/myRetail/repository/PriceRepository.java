@@ -1,26 +1,5 @@
 package com.casestudy.myRetail.repository;
 
-/*
-import com.casestudy.myRetail.model.Price;
-import com.casestudy.myRetail.model.Product;
-import org.springframework.data.mongodb.repository.MongoRepository;
-
-/**
- * Created by z071476 on 9/22/17.
-
-
-public interface PriceRepository extends MongoRepository<Product, String> {
-
-    public Price findByProductId(Long productID);
-
-
-   // public boolean updatePriceByProductID(Product);
-
-
-}
-
- */
-
 import com.casestudy.myRetail.model.Price;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;

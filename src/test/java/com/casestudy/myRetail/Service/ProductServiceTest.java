@@ -1,7 +1,7 @@
 package com.casestudy.myRetail.Service;
 
 import com.casestudy.myRetail.model.Product;
-import com.casestudy.myRetail.util.ProductNotFoundException;
+import com.casestudy.myRetail.Exception.ProductNotFoundException;
 import junit.framework.TestCase;
 import org.junit.Test;
 

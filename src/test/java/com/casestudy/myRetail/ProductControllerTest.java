@@ -1,37 +1,41 @@
 package com.casestudy.myRetail;
 
+import com.casestudy.myRetail.Service.PriceService;
+import com.casestudy.myRetail.Service.ProductService;
+import com.casestudy.myRetail.Controller.ProductController;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.context.WebApplicationContext;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 /**
  * Created by z071476 on 9/24/17.
  */
-@RunWith(SpringRunner.class)
-@WebMvcTest(value = MyRetailController.class, secure = false)
-@WebAppConfiguration
-public class MyRetailControllerTest {
 
-    @Autowired
+public class ProductControllerTest {
+
     private MockMvc mockMvc;
 
-    @Autowired
-    private WebApplicationContext webApplicationContext;
+    @Mock
+    private ProductService productService;
+    @Mock
+    private PriceService priceService;
+
+    @InjectMocks
+    private ProductController productController;
+
 
     @Before
     public void setUp() throws Exception {
-        this.mockMvc = webAppContextSetup(webApplicationContext).build();
+        MockitoAnnotations.initMocks((this));
+        mockMvc = MockMvcBuilders.standaloneSetup(productController).build();
 
     }
 

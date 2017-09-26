@@ -1,9 +1,15 @@
 package com.casestudy.myRetail.Service;
 
+import com.casestudy.myRetail.Exception.ProductNotFoundException;
 import com.casestudy.myRetail.model.Product;
-import com.casestudy.myRetail.util.ProductNotFoundException;
-import com.fasterxml.jackson.databind.JsonNode;
+import com.casestudy.myRetail.model.RedSkyProduct;
+import com.casestudy.myRetail.util.RedSkyProductDeserializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -15,35 +21,61 @@ import java.io.IOException;
  * ProductService rest service to perform a get by ProductID and returns price and description if available.
  */
 @Service
+@ConfigurationProperties(prefix = "externalProductService")
 public class ProductService {
 
-    public Product getProduct(Long productId) throws ProductNotFoundException, IOException {
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> response = restTemplate.getForEntity(
-                "http://redsky.target.com/v2/pdp/tcin/" + productId + "?excludes=taxonomy,price,promotion,bulk_ship,rating_and_review_reviews,rating_and_review_statistics,question_answer_statistics",
-                String.class);
+    private String url;
+    private RestTemplate restTemplate;
 
-        return parseReponse(response.getBody());
+    public ProductService() {
     }
 
+    @Autowired
+    public ProductService(RestTemplateBuilder restTemplateBuilder, @Value("${externalProductService.url}") String url) {
+        this.url = url;
+        this.restTemplate = restTemplateBuilder.build();
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public Product getProduct(Long productId) throws ProductNotFoundException, IOException {
+
+        try {
+
+            ResponseEntity<String> response = restTemplate.getForEntity(url.concat(productId.toString()), String.class);
+            return parseReponse(response.getBody());
+        } catch (Exception e) {
+            System.out.println(e);
+            throw new ProductNotFoundException("Product not found. Please check the Product ID on Target.com!", e);
+        }
+
+
+    }
+
+    /*
+    *parseResponse, uses custom serializer to store applicable values within RedSkyProduct call response
+     */
     Product parseReponse(String responseBody) throws IOException,
             ProductNotFoundException {
         ObjectMapper mapper = new ObjectMapper();
-        JsonNode root = mapper.readTree(responseBody);
-        JsonNode name = root.path("product");
-        JsonNode productID = name.path("available_to_promise_network");
-        JsonNode desc = name.path("item");
-
-        if (productID.path("errors") != null && productID.path("errors").size() >= 1) {
-
-            throw new ProductNotFoundException(
-                    "Product not Found. Please check the Product ID on Target.com!");
-        }
-
         Product product = new Product();
-        product.setId(productID.path("product_id").asLong());
-        product.setName(desc.path("product_description").path("title").asText());
+
+        SimpleModule module = new SimpleModule();
+        module.addDeserializer(RedSkyProduct.class, new RedSkyProductDeserializer());
+        mapper.registerModule(module);
+
+        RedSkyProduct redSkyProduct = mapper.readValue(responseBody, RedSkyProduct.class);
+        product.setName(redSkyProduct.getTitle());
+        product.setId(redSkyProduct.getProduct_id());
+
         return product;
     }
+
 
 }
