@@ -20,17 +20,18 @@ Instructions to run this on a local instance
 
 After cloning the code to local repository, use the port 8090 and run the application 'MyRetailApplication'
 
-Sample rest API links
-1.(Valid Product and Valid Price in DB)
+Sample rest API links:
+
+1.(Valid Product and Valid Price in DB)- 
 
 http://localhost:8090/product/16696652 
 http://localhost:8090/product/13860428
    
-2. Valid Product but no price available in DB
+2. Valid Product but no price available in DB - 
 
 http://localhost:8090/product/13568163
   
-3. Invalid Product ID/Non-existent Product ID
+3. Invalid Product ID/Non-existent Product ID - 
 
 http://localhost:8090/product/1669665233
 http://localhost:8090/product/16696652w
