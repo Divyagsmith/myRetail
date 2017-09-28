@@ -1,8 +1,7 @@
-package com.casestudy.myRetail;
+package com.casestudy.myRetail.Controller;
 
 import com.casestudy.myRetail.Service.PriceService;
 import com.casestudy.myRetail.Service.ProductService;
-import com.casestudy.myRetail.Controller.ProductController;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;

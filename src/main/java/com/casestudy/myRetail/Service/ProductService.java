@@ -51,11 +51,8 @@ public class ProductService {
             ResponseEntity<String> response = restTemplate.getForEntity(url.concat(productId.toString()), String.class);
             return parseReponse(response.getBody());
         } catch (Exception e) {
-            System.out.println(e);
             throw new ProductNotFoundException("Product not found. Please check the Product ID on Target.com!", e);
         }
-
-
     }
 
     /*

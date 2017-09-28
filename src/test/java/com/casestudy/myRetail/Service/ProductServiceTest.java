@@ -1,7 +1,7 @@
 package com.casestudy.myRetail.Service;
 
-import com.casestudy.myRetail.model.Product;
 import com.casestudy.myRetail.Exception.ProductNotFoundException;
+import com.casestudy.myRetail.model.Product;
 import junit.framework.TestCase;
 import org.junit.Test;
 
@@ -11,11 +11,6 @@ import java.io.IOException;
  * Created by z071476 on 9/24/17.
  */
 public class ProductServiceTest extends TestCase {
-
-
-    public void testGetProduct() {
-
-    }
 
     @Test
     public void testParseReponse() {
@@ -39,7 +34,7 @@ public class ProductServiceTest extends TestCase {
             assertEquals(51265453, product.getId());
 
         } catch (Exception e) {
-
+            assertFalse(false);
         }
     }
 

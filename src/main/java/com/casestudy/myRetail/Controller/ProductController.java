@@ -1,10 +1,10 @@
 package com.casestudy.myRetail.Controller;
 
+import com.casestudy.myRetail.Exception.ProductNotFoundException;
 import com.casestudy.myRetail.Service.PriceService;
 import com.casestudy.myRetail.Service.ProductService;
 import com.casestudy.myRetail.model.Price;
 import com.casestudy.myRetail.model.Product;
-import com.casestudy.myRetail.Exception.ProductNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +25,7 @@ public class ProductController {
             .getLogger(ProductController.class);
     @Autowired
     ProductService productService;
+
     @Autowired
     PriceService priceService;
 
@@ -35,7 +36,6 @@ public class ProductController {
         updateProductPrice(id, product);
 
         return product;
-
     }
 
     /*

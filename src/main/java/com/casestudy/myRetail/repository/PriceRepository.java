@@ -14,13 +14,11 @@ public class PriceRepository {
 
     public Price findByProductId(Long productId) {
 
-        Price price = mongoTemplate.findOne(buildQuery(productId), Price.class);
-
-        return price;
-
+        return mongoTemplate.findOne(buildQuery(productId), Price.class);
     }
 
     private Query buildQuery(Long productID) {
+
         Query query = new Query();
         query.addCriteria(Criteria.where("id").is(productID));
         return query;
