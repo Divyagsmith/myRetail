@@ -1,4 +1,6 @@
-# myRetail - Rest API that provides product ID and description as retrieved from RedSky API and combines with pricing information available through a data source.
+# myRetail 
+
+Rest API that provides product ID and description by retrieving it from RedSky API and combines with pricing information available through a NoSQL DB.
 
 #Technologies Used
 1. Java 1.8
