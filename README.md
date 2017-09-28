@@ -22,14 +22,14 @@ After cloning the code to local repository, use the port 8090 and run the applic
 
 Sample rest API links:
 
-1.Valid Product and Valid Price in DB - 
+1. Valid Product and Valid Price in DB - <br>
 http://localhost:8090/product/16696652 <br>
 http://localhost:8090/product/13860428
    
-2. Valid Product but no price available in DB - 
+2. Valid Product but no price available in DB - <br>
 http://localhost:8090/product/13568163
   
-3. Invalid Product ID/Non-existent Product ID -
+3. Invalid Product ID/Non-existent Product ID -<br>
 http://localhost:8090/product/1669665233 <br>
 http://localhost:8090/product/16696652w
 
